@@ -11,7 +11,7 @@ $(document).ready(function(){
     //------------------------------------------------------------------------//
 
     //placeholder
-    $('input[placeholder], textarea[placeholder]').placeholder();
+    // $('input[placeholder], textarea[placeholder]').placeholder();
 
     //------------------------------------------------------------------------//
 
