@@ -12,7 +12,8 @@
     var width  = 634,
         height = 486,
         explosionRatio = 0.3,
-        rotationSpeed = 0.01,
+        verticeDepth = -0.05,
+        rotationSpeed = 0.005,
         rotation = 0;
     var color =  0xd0d0d0;
 
@@ -23,21 +24,15 @@
     var renderer = new t.WebGLRenderer({alpha: true, antialias: true});
     renderer.setSize(width, height);
 
-    scene.add(new t.AmbientLight(0x333333));
+    scene.add(new t.AmbientLight(0xa2a2a2));
 
-    var light = new t.PointLight(0xffffff);
-    light.position.set(600, 600, 600);
+    var light = new t.PointLight(0xa0a0a0);
+    light.position.set(600, 500, 600);
     scene.add(light);
 
     var sphere = [];
 
-    var sphereFaces = new t.SphereGeometry(200, 5, 3);
-
-
-    var cube = new THREE.Mesh(new THREE.CubeGeometry(200, 200, 200), new THREE.MeshNormalMaterial());
-    // cube.overdraw = true;
-
-    // scene.add(cube);
+    var sphereFaces = new t.IcosahedronGeometry(200, 0);
 
     for (var i = 0; i < sphereFaces.faces.length; i++) {
         var face = sphereFaces.faces[i];
@@ -45,46 +40,52 @@
         vertice.vertices.push(sphereFaces.vertices[face.a].clone());
         vertice.vertices.push(sphereFaces.vertices[face.b].clone());
         vertice.vertices.push(sphereFaces.vertices[face.c].clone());
-        vertice.faces.push(new THREE.Face3(0, 1, 2, face.normal));
+        vertice.faces.push(new THREE.Face3(0, 1, 2, face.normal.clone())); // Front
         getCenter(vertice);
-        var innerPointsTranslate = vertice.center.clone().multiplyScalar(0.02);
+        var innerPointsTranslate = vertice.center.clone().multiplyScalar(verticeDepth);
         vertice.vertices.push(sphereFaces.vertices[face.a].clone().add(innerPointsTranslate));
         vertice.vertices.push(sphereFaces.vertices[face.b].clone().add(innerPointsTranslate));
         vertice.vertices.push(sphereFaces.vertices[face.c].clone().add(innerPointsTranslate));
-        vertice.faces.push(new THREE.Face3(3, 4, 5, face.normal));
+        vertice.faces.push(new THREE.Face3(5, 4, 3, face.normal.clone())); // Back Face
+        // Sides faces
         vertice.faces.push(new THREE.Face3(0, 3, 4));
-        vertice.faces.push(new THREE.Face3(0, 1, 4));
-        vertice.faces.push(new THREE.Face3(1, 2, 5));
+        vertice.faces.push(new THREE.Face3(4, 1, 0));
+        vertice.faces.push(new THREE.Face3(5, 2, 1));
         vertice.faces.push(new THREE.Face3(1, 4, 5));
-        vertice.faces.push(new THREE.Face3(2, 0, 3));
-        vertice.faces.push(new THREE.Face3(2, 3, 5));
+        vertice.faces.push(new THREE.Face3(3, 0, 2));
+        vertice.faces.push(new THREE.Face3(5, 3, 2));
+
+        // Compute normals for sides faces
         vertice.computeFaceNormals();
         vertice.computeVertexNormals();
+
+        // Espace all faces
         explode(vertice, explosionRatio);
 
-        var mesh = new THREE.Mesh(vertice, new THREE.MeshPhongMaterial({
-            ambient: 0x030303,
+        var mesh = new THREE.Mesh(vertice, new THREE.MeshLambertMaterial({
+            ambient: 0xa0a0a0,
             color: color,
             specular: 0x000000,
             shininess: 30,
-            shading: t.FlatShading,
-            side: t.DoubleSide
+            shading: t.NoShading,
+            opacity: 0.8
         }));
         scene.add(mesh);
-
-        // var point = new t.Vector3(sphereFaces.vertices[face.a]);
-        // vertice.vertices.push(point.add(triangle.normal().multiplyScalar(5)));
-        // var point = new t.Vector3(sphereFaces.vertices[face.b]);
-        // vertice.vertices.push(point.add(triangle.normal().multiplyScalar(5)));
-        // var point = new t.Vector3(sphereFaces.vertices[face.c]);
-        // vertice.vertices.push(point.add(triangle.normal().multiplyScalar(5)));
-
-        // vertice.faces.push(new THREE.Face3(0, 1, 2));
-        // var mesh = new THREE.Mesh(vertice, new THREE.MeshPhongMaterial({color: "red", side: t.DoubleSide}));
-        // scene.add(mesh);
-
         sphere.push(mesh);
     };
+
+    var outside = new t.Mesh(
+        new t.IcosahedronGeometry(250, 2),
+        new t.MeshLambertMaterial({
+            wireframe: true,
+            color: 0x000000,
+            shininess: 0,
+            specular: 0,
+            ambient: 0x808080,
+            opacity: 0.5
+        }) )
+
+    scene.add(outside);
 
     webglEl.appendChild(renderer.domElement);
 
@@ -96,9 +97,12 @@
         camera.position.x = Math.sin(rotation) * 700;
         camera.position.z = Math.cos(rotation) * 700;
         camera.lookAt(scene.position);
+        // camera.rotation.z = -1;
         // controls.update();
         requestAnimationFrame(render);
-        light.position.set(camera.position.x, camera.position.y, camera.position.z);
+        light.position.x = Math.sin(rotation - rotationSpeed * 30) * 700;
+        light.position.z = Math.cos(rotation - rotationSpeed * 30) * 700;
+        // light.position.set(camera.position.x + 500, camera.position.y + 300, camera.position.z);
         renderer.render(scene, camera);
     }
 
