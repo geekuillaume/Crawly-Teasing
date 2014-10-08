@@ -4,34 +4,22 @@ header {
     background: url(../images/header.jpg) no-repeat 50% 50%;
     font: 24px/36px $fontCaption;
     color: $white;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
     @include bgsize;
     @include sizing;
     h1 {
-        font-size: 60px;
-        line-height: 60px;
+        font-size: 140px;
+        line-height: 140px;
         font-weight: $f-medium;
         margin-bottom: 38px;
         span {
             font-weight: $f-extra-light;
         }
     }
-    .autor {
-        padding: 12px 0 0;
-        font-size: 14px;
-        line-height: 24px;
-        font-weight: bold;
-        color: $white;
-        a {
-            color: $white;
-            &:hover {
-                color: $white;
-                @include opacity(0.8);
-            }
-            &:active {
-                color: $white;
-                @include opacity(1);
-            }
-        }
+    p {
+        margin-bottom: 38px;
     }
     .buttons-wrapper {
         padding-top: 53px;
@@ -45,7 +33,11 @@ header {
 }
 .header-wrapper {
     padding-top: 87px;
-    max-width: 655px
+    max-width: 655px;
+    position: relative;
+    z-index: 10;
+    margin: auto;
+    text-align: center;
 }
 #pointsVisu {
     position: absolute;
@@ -53,4 +45,5 @@ header {
     right: 0;
     left: 0;
     bottom: 0;
+    z-index: 0;
 }

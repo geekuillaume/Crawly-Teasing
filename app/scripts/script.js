@@ -11,7 +11,7 @@ $(document).ready(function(){
     //------------------------------------------------------------------------//
 
     //placeholder
-    // $('input[placeholder], textarea[placeholder]').placeholder();
+    $('input[placeholder], textarea[placeholder]').placeholder();
 
     //------------------------------------------------------------------------//
 
@@ -45,9 +45,13 @@ $(document).ready(function(){
         addListeners();
 
         function initHeader() {
-            width = window.innerWidth;
             height = window.innerHeight;
             target = {x: width/2, y: height/2};
+
+            largeHeader = document.getElementById('large-header');
+            largeHeader.style.height = height+'px';
+
+            width = largeHeader.offsetWidth;
 
             canvas = document.getElementById('pointsVisu');
             canvas.width = width;
@@ -217,6 +221,5 @@ $(document).ready(function(){
         }
 
     })();
-
 
 });//document ready

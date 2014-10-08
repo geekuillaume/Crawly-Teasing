@@ -2,14 +2,13 @@
 <html class="no-js">
     <head>
         <meta charset="utf-8">
-        <title>Teasing</title>
+        <title>Crawly - Easy Real-Time Web Scrapping</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
         <link rel="shortcut icon" href="/favicon.ico">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <!-- build:css styles/vendor.css -->
         <!-- bower:css -->
-
         <!-- endbower -->
         <!-- endbuild -->
         <!-- build:css(.tmp) styles/main.css -->
@@ -22,23 +21,24 @@
     </head>
     <body class="no-js">
         <div class="main">
-            <header>
+            <header id="large-header">
+                <canvas id="pointsVisu"></canvas>
                 <div class="wrap">
                     <div class="header-wrapper">
                         <h1>Crawly</h1>
-                        <p>With a smartphone and the right app, you can find any spot on Earth. But the best navigation apps do a lot more. Look out for that speed trap.</p>
-                        <p class="autor"><a href="#">Dan Rowinski</a></p>
-                        <div class="buttons-wrapper">
-                            <a href="#" class="button">Download App</a>
-                            <a href="#" class="button button-stripe">Learn more</a>
+                        <p>Take off the painingful parts of Web Scrapping to get meaningful data in real-time</p>
+                        <div class="newsletter-form clearfix">
+                            <form action="">
+                                <input type="email" placeholder="john@doe.com" class="input-text">
+                                <input type="button" class="button" value="Keep me posted !">
+                            </form>
                         </div>
                     </div>
                     <!-- /.header-wrapper -->
                 </div>
-                <canvas id="pointsVisu"></canvas>
                 <!-- /.wrap -->
             </header>
-            <div class="spanning">
+<!--             <div class="spanning">
                 <div class="promo clearfix">
                     <div class="wrap">
                         <div class="promo-wrapper clearfix">
@@ -64,15 +64,14 @@
                             </div>
                         </div>
                     </div>
-                    <!-- /.wrap -->
                 </div>
-                <!-- /.promo clearfix -->
+ -->                <!-- /.promo clearfix -->
                 <div class="discover clearfix">
                     <div class="wrap">
                         <div class="discover-content clearfix">
-                            <h2>Discover</h2>
-                            <p>Human rights momentum. World problem solving turmoil, change movements environmental pursue these aspirations initiative donation. Policy dialogue, underprivileged accessibility, asylum visionary, prevention beneficiaries carbon emissions reductions empower.</p>
-                            <div class="discover-button clearfix">
+                            <h2>Scrapping made easy</h2>
+                            <p>Crawly made it easy to you to scrap a lot of data on websites.</p>
+<!--                             <div class="discover-button clearfix">
                                 <a href="#" class="button button-download">
                                     <span class="button-download-title">Download for</span>
                                     <span class="button-download-subtitle">Apple iOS</span>
@@ -82,10 +81,11 @@
                                     <span class="button-download-subtitle">Android</span>
                                 </a>
                             </div>
-                        </div>
+ -->                        </div>
                         <div class="discover-img">
-                            <div class="discover-img-inside"><img src="images/discover.png" height="486" width="634" alt=""></div>
-                        </div>
+                            <div id="globe" height="486" width="634"></div>
+<!--                             <div class="discover-img-inside"><img src="images/discover.png" height="486" width="634" alt=""></div>
+ -->                        </div>
                     </div>
                     <!-- /.wrap -->
                 </div>
@@ -182,8 +182,11 @@
         <!-- build:js scripts/vendor.js -->
         <!-- bower:js -->
         <script src="../bower_components/jquery/dist/jquery.js"></script>
+        <script src="../bower_components/three.js/three.min.js"></script>
         <!-- endbower -->
         <script src="scripts/library.js"></script>
+        <script src="scripts/Detector.js"></script>
+        <script src="scripts/TrackballControl.js"></script>
         <script src="scripts/retina.js"></script>
         <script src="scripts/TweenLite.min.js"></script>
         <script src="scripts/EasePack.min.js"></script>
@@ -217,6 +220,7 @@
 
         <!-- build:js({app,.tmp}) scripts/main.js -->
         <script src="scripts/script.js"></script>
+        <script src="scripts/globe.js"></script>
         <!-- endbuild -->
     </body>
 </html>
