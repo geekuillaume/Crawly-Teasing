@@ -12,7 +12,7 @@
     var width  = 634,
         height = 486,
         explosionRatio = 0.3,
-        verticeDepth = -0.05,
+        verticeDepth = 0.95,
         rotationSpeed = 0.005,
         rotation = 0;
     var color =  0xd0d0d0;
@@ -42,10 +42,9 @@
         vertice.vertices.push(sphereFaces.vertices[face.c].clone());
         vertice.faces.push(new THREE.Face3(0, 1, 2, face.normal.clone())); // Front
         getCenter(vertice);
-        var innerPointsTranslate = vertice.center.clone().multiplyScalar(verticeDepth);
-        vertice.vertices.push(sphereFaces.vertices[face.a].clone().add(innerPointsTranslate));
-        vertice.vertices.push(sphereFaces.vertices[face.b].clone().add(innerPointsTranslate));
-        vertice.vertices.push(sphereFaces.vertices[face.c].clone().add(innerPointsTranslate));
+        vertice.vertices.push(sphereFaces.vertices[face.a].clone().multiplyScalar(verticeDepth));
+        vertice.vertices.push(sphereFaces.vertices[face.b].clone().multiplyScalar(verticeDepth));
+        vertice.vertices.push(sphereFaces.vertices[face.c].clone().multiplyScalar(verticeDepth));
         vertice.faces.push(new THREE.Face3(5, 4, 3, face.normal.clone())); // Back Face
         // Sides faces
         vertice.faces.push(new THREE.Face3(0, 3, 4));
