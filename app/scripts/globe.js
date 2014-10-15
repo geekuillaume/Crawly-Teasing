@@ -9,17 +9,19 @@
         return;
     }
 
-    var width  = 634,
-        height = 486,
+    var width  = window.innerWidth / 3,
+        height = window.innerHeight,
         explosionRatio = 0.3,
         verticeDepth = 0.95,
         rotationSpeed = 0.005,
-        rotation = 0;
+        rotation = 0,
+        cameraDistance = 700,
+        globePosition = {x: -150, y: 0};
     var color =  0xd0d0d0;
 
     var scene = new t.Scene();
     var camera = new t.PerspectiveCamera(45, width / height, 0.01, 10000);
-    camera.position.z = 700;
+    camera.position.z = cameraDistance;
 
     var renderer = new t.WebGLRenderer({alpha: true, antialias: true});
     renderer.setSize(width, height);
@@ -33,6 +35,8 @@
     var sphere = [];
 
     var sphereFaces = new t.IcosahedronGeometry(200, 0);
+
+    group = new THREE.Object3D();//create an empty container
 
     for (var i = 0; i < sphereFaces.faces.length; i++) {
         var face = sphereFaces.faces[i];
@@ -61,6 +65,12 @@
         // Espace all faces
         explode(vertice, explosionRatio);
 
+        // vertice.applyMatrix( new THREE.Matrix4().makeTranslation(globePosition.x, globePosition.y, 0) );
+
+        console.log(vertice);
+        // vertice.position.x += globePosition.x;
+        // vertice.position.y += globePosition.y;
+
         var mesh = new THREE.Mesh(vertice, new THREE.MeshLambertMaterial({
             ambient: 0xa0a0a0,
             color: color,
@@ -69,7 +79,9 @@
             shading: t.NoShading,
             opacity: 0.8
         }));
-        scene.add(mesh);
+        console.log(mesh);
+        group.add(mesh);//add a mesh with geometry to it
+        // scene.add(mesh);
         sphere.push(mesh);
     };
 
@@ -83,8 +95,11 @@
             ambient: 0x808080,
             opacity: 0.5
         }) )
+    group.add(outside);
 
-    scene.add(outside);
+    group.position.x = globePosition.x;
+    group.position.y = globePosition.y;
+    scene.add(group);
 
     webglEl.appendChild(renderer.domElement);
 
@@ -93,14 +108,11 @@
 
     function render() {
         rotation += rotationSpeed;
-        camera.position.x = Math.sin(rotation) * 700;
-        camera.position.z = Math.cos(rotation) * 700;
-        camera.lookAt(scene.position);
-        // camera.rotation.z = -1;
         // controls.update();
         requestAnimationFrame(render);
-        light.position.x = Math.sin(rotation - rotationSpeed * 30) * 700;
-        light.position.z = Math.cos(rotation - rotationSpeed * 30) * 700;
+        group.rotation.y = rotation;
+        // light.position.x = Math.sin(rotation - rotationSpeed * 30) * cameraDistance;
+        // light.position.z = Math.cos(rotation - rotationSpeed * 30) * cameraDistance;
         // light.position.set(camera.position.x + 500, camera.position.y + 300, camera.position.z);
         renderer.render(scene, camera);
     }
@@ -115,6 +127,16 @@
 
     function explode(geometry, ratio) {
         geometry.applyMatrix(new THREE.Matrix4().makeTranslation(geometry.center.x * ratio, geometry.center.y * ratio, geometry.center.z * ratio));
+    }
+
+    window.addEventListener('resize', resize);
+
+    function resize() {
+        width = window.innerWidth / 3;
+        height = window.innerHeight;
+        renderer.setSize(width, height);
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
     }
 
 }());
