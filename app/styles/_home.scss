@@ -1,1 +1,34 @@
 /* home -------------------------- */
+.input_button {
+    width: 69px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    border-radius: 0 5px 5px 0;
+    background: white;
+    border: none;
+    font-size: 17px;
+    &:active {
+        background-color: rgba(255,255,255,0.8)
+    }
+}
+.input-text {
+    width: 100%;
+    border: 2px solid #d8d8d8;
+    background: transparent;
+    height: 45px;
+    padding: 10px 21px;
+    font: $f-medium 17px/34px $fontCaption;
+    color: white;
+    @include transition(#{color 0.1s linear, background-color 0.1s linear, border-color 0.1s linear});
+    @include border-radius(5px 0 0 5px);
+}
+.input_container {
+    width: 100%;
+    padding-right: 69px;
+    @include sizing;
+}
+.input_form {
+    position: relative;
+}

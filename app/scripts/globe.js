@@ -13,10 +13,11 @@
         height = window.innerHeight,
         explosionRatio = 0.3,
         verticeDepth = 0.95,
-        rotationSpeed = 0.005,
+        rotationSpeed = 0.002,
         rotation = 0,
         cameraDistance = 700,
-        globePosition = {x: -150, y: 0};
+        globePosition = {x: -150, y: 0},
+        opacity = 1;
     var color =  0xd0d0d0;
 
     var scene = new t.Scene();
@@ -67,7 +68,6 @@
 
         // vertice.applyMatrix( new THREE.Matrix4().makeTranslation(globePosition.x, globePosition.y, 0) );
 
-        console.log(vertice);
         // vertice.position.x += globePosition.x;
         // vertice.position.y += globePosition.y;
 
@@ -77,9 +77,8 @@
             specular: 0x000000,
             shininess: 30,
             shading: t.NoShading,
-            opacity: 0.8
+            opacity: opacity
         }));
-        console.log(mesh);
         group.add(mesh);//add a mesh with geometry to it
         // scene.add(mesh);
         sphere.push(mesh);

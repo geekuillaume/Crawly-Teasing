@@ -1,7 +1,7 @@
 /* header -------------------------- */
 header {
     padding: 104px 0;
-    background: url(../images/header.jpg) no-repeat 50% 50%;
+    background: url(../images/bg_lanes.jpg) no-repeat 50% 50%;
     font: 24px/36px $fontCaption;
     color: $white;
     overflow: hidden;
@@ -14,6 +14,8 @@ header {
         line-height: 140px;
         font-weight: $f-medium;
         margin-bottom: 38px;
+        font-family: "adequateextra_light", sans-serif;
+        text-transform: uppercase;
         span {
             font-weight: $f-extra-light;
         }
