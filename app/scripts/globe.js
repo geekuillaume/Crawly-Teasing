@@ -5,107 +5,134 @@
     var webglEl = document.getElementById('globe');
 
     if (!Detector.webgl) {
-        Detector.addGetWebGLMessage(webglEl);
+        // Detector.addGetWebGLMessage(webglEl);
         return;
     }
 
-    var width  = window.innerWidth / 3,
+    var width  = window.innerWidth,
         height = window.innerHeight,
-        explosionRatio = 0.3,
         verticeDepth = 0.95,
         rotationSpeed = 0.002,
         rotation = 0,
         cameraDistance = 700,
-        globePosition = {x: -150, y: 0},
-        opacity = 1;
+        startPosition = {x: -500, y: 0, scale: 1, explosion: 0.04},
+        endPosition = {x: 0, y: 0, scale: 0.8, explosion: 0.7},
+        opacity = 1,
+        globeCenter = false,
+        animation,
+        globePosition,
+        ease = TWEEN.Easing.Sinusoidal.InOut;
     var color =  0xd0d0d0;
 
-    var scene = new t.Scene();
-    var camera = new t.PerspectiveCamera(45, width / height, 0.01, 10000);
-    camera.position.z = cameraDistance;
+    var scene, camera, renderer, light, sphere;
 
-    var renderer = new t.WebGLRenderer({alpha: true, antialias: true});
-    renderer.setSize(width, height);
+    init();
 
-    scene.add(new t.AmbientLight(0xa2a2a2));
+    function init() {
+        scene = new t.Scene();
+        camera = new t.PerspectiveCamera(45, width / height, 0.01, 10000);
+        camera.position.z = cameraDistance;
 
-    var light = new t.PointLight(0xa0a0a0);
-    light.position.set(600, 500, 600);
-    scene.add(light);
+        renderer = new t.WebGLRenderer({alpha: true, antialias: true});
+        renderer.setSize(width, height);
 
-    var sphere = [];
+        scene.add(new t.AmbientLight(0xa2a2a2));
 
-    var sphereFaces = new t.IcosahedronGeometry(200, 0);
+        light = new t.PointLight(0xa0a0a0);
+        light.position.set(600, 500, 600);
+        scene.add(light);
+        globePosition = {
+            x: startPosition.x,
+            y: startPosition.y,
+            scale: startPosition.scale,
+            explosion: startPosition.explosion
+        };
+        createScene();
+        webglEl.appendChild(renderer.domElement);
+        window.addEventListener('resize', resize);
+        render();
+    }
 
-    group = new THREE.Object3D();//create an empty container
+    function createSphere() {
+        group = new THREE.Object3D();
 
-    for (var i = 0; i < sphereFaces.faces.length; i++) {
-        var face = sphereFaces.faces[i];
-        var vertice = new t.Geometry();
-        vertice.vertices.push(sphereFaces.vertices[face.a].clone());
-        vertice.vertices.push(sphereFaces.vertices[face.b].clone());
-        vertice.vertices.push(sphereFaces.vertices[face.c].clone());
-        vertice.faces.push(new THREE.Face3(0, 1, 2, face.normal.clone())); // Front
-        getCenter(vertice);
-        vertice.vertices.push(sphereFaces.vertices[face.a].clone().multiplyScalar(verticeDepth));
-        vertice.vertices.push(sphereFaces.vertices[face.b].clone().multiplyScalar(verticeDepth));
-        vertice.vertices.push(sphereFaces.vertices[face.c].clone().multiplyScalar(verticeDepth));
-        vertice.faces.push(new THREE.Face3(5, 4, 3, face.normal.clone())); // Back Face
-        // Sides faces
-        vertice.faces.push(new THREE.Face3(0, 3, 4));
-        vertice.faces.push(new THREE.Face3(4, 1, 0));
-        vertice.faces.push(new THREE.Face3(5, 2, 1));
-        vertice.faces.push(new THREE.Face3(1, 4, 5));
-        vertice.faces.push(new THREE.Face3(3, 0, 2));
-        vertice.faces.push(new THREE.Face3(5, 3, 2));
+        sphere = [];
+        var sphereFaces = new t.IcosahedronGeometry(200, 0);
 
-        // Compute normals for sides faces
-        vertice.computeFaceNormals();
-        vertice.computeVertexNormals();
+        for (var i = 0; i < sphereFaces.faces.length; i++) {
+            var face = sphereFaces.faces[i];
+            var vertice = new t.Geometry();
+            var faceGroup = new THREE.Object3D();
+            vertice.vertices.push(sphereFaces.vertices[face.a].clone());
+            vertice.vertices.push(sphereFaces.vertices[face.b].clone());
+            vertice.vertices.push(sphereFaces.vertices[face.c].clone());
+            vertice.faces.push(new THREE.Face3(0, 1, 2, face.normal.clone())); // Front
+            getCenter(vertice);
+            vertice.vertices.push(sphereFaces.vertices[face.a].clone().multiplyScalar(verticeDepth));
+            vertice.vertices.push(sphereFaces.vertices[face.b].clone().multiplyScalar(verticeDepth));
+            vertice.vertices.push(sphereFaces.vertices[face.c].clone().multiplyScalar(verticeDepth));
+            vertice.faces.push(new THREE.Face3(5, 4, 3, face.normal.clone())); // Back Face
+            // Sides faces
+            vertice.faces.push(new THREE.Face3(0, 3, 4));
+            vertice.faces.push(new THREE.Face3(4, 1, 0));
+            vertice.faces.push(new THREE.Face3(5, 2, 1));
+            vertice.faces.push(new THREE.Face3(1, 4, 5));
+            vertice.faces.push(new THREE.Face3(3, 0, 2));
+            vertice.faces.push(new THREE.Face3(5, 3, 2));
 
-        // Espace all faces
-        explode(vertice, explosionRatio);
+            // Compute normals for sides faces
+            vertice.computeFaceNormals();
+            vertice.computeVertexNormals();
 
-        // vertice.applyMatrix( new THREE.Matrix4().makeTranslation(globePosition.x, globePosition.y, 0) );
+            // Espace all faces
 
-        // vertice.position.x += globePosition.x;
-        // vertice.position.y += globePosition.y;
+            var mesh = new THREE.Mesh(vertice, new THREE.MeshLambertMaterial({
+                ambient: 0xa0a0a0,
+                color: color,
+                specular: 0x000000,
+                shininess: 30,
+                shading: t.NoShading,
+                opacity: opacity
+            }));
+            faceGroup.add(mesh);
+            faceGroup.center = vertice.center;
+            initExplosion(faceGroup);
+            explode(faceGroup, globePosition.explosion);
+            group.add(faceGroup);//add a mesh with geometry to it
+            sphere.push(faceGroup);
+        };
+        return group;
+    }
 
-        var mesh = new THREE.Mesh(vertice, new THREE.MeshLambertMaterial({
-            ambient: 0xa0a0a0,
-            color: color,
-            specular: 0x000000,
-            shininess: 30,
-            shading: t.NoShading,
-            opacity: opacity
-        }));
-        group.add(mesh);//add a mesh with geometry to it
-        // scene.add(mesh);
-        sphere.push(mesh);
-    };
+    function createOutside() {
+        return new t.Mesh(
+            new t.IcosahedronGeometry(250, 2),
+            new t.MeshLambertMaterial({
+                wireframe: true,
+                color: 0x000000,
+                shininess: 0,
+                specular: 0,
+                ambient: 0x808080,
+                opacity: 0.5
+            }) )
+    }
 
-    var outside = new t.Mesh(
-        new t.IcosahedronGeometry(250, 2),
-        new t.MeshLambertMaterial({
-            wireframe: true,
-            color: 0x000000,
-            shininess: 0,
-            specular: 0,
-            ambient: 0x808080,
-            opacity: 0.5
-        }) )
-    group.add(outside);
+    function createScene() {
+        group = new THREE.Object3D();
+        group.add(createSphere());
+        group.add(createOutside());
 
-    group.position.x = globePosition.x;
-    group.position.y = globePosition.y;
-    scene.add(group);
+        group.position.x = globePosition.x;
+        group.position.y = globePosition.y;
+        group.scale.set(globePosition.scale, globePosition.scale, globePosition.scale);
+        scene.add(group);
+    }
 
-    webglEl.appendChild(renderer.domElement);
 
-    var controls = new t.TrackballControls(camera, renderer.domElement);
-    render();
+    // var controls = new t.TrackballControls(camera, renderer.domElement);
 
     function render() {
+        TWEEN.update();
         rotation += rotationSpeed;
         // controls.update();
         requestAnimationFrame(render);
@@ -124,18 +151,60 @@
         );
     }
 
-    function explode(geometry, ratio) {
-        geometry.applyMatrix(new THREE.Matrix4().makeTranslation(geometry.center.x * ratio, geometry.center.y * ratio, geometry.center.z * ratio));
+    function initExplosion(object) {
+        object.initPosition = {
+            x: object.position.x,
+            y: object.position.y,
+            z: object.position.z
+        }
     }
 
-    window.addEventListener('resize', resize);
+    function explode(object, ratio) {
+        if (!object.initPosition)
+            return;
+        object.position.x = object.initPosition.x + object.center.x * ratio,
+        object.position.y = object.initPosition.y + object.center.y * ratio,
+        object.position.z = object.initPosition.z + object.center.z * ratio
+    }
 
     function resize() {
-        width = window.innerWidth / 3;
+        width = window.innerWidth;
         height = window.innerHeight;
         renderer.setSize(width, height);
         camera.aspect = width / height;
         camera.updateProjectionMatrix();
+    }
+
+    window.addEventListener('scroll', scroll);
+
+    function updateGroup() {
+        group.position.x = globePosition.x;
+        group.position.y = globePosition.y;
+        group.scale.set(globePosition.scale, globePosition.scale, globePosition.scale);
+        for (var i = sphere.length - 1; i >= 0; i--) {
+            explode(sphere[i], globePosition.explosion);
+        };
+    }
+
+    function scroll() {
+        if (document.body.scrollTop > height / 2 && globeCenter == false) {
+            animation && animation.stop();
+            animation = new TWEEN.Tween(globePosition)
+                .to(endPosition, 1000)
+                .easing(ease)
+                .onUpdate(updateGroup)
+                .start();
+            globeCenter = true;
+        }
+        else if (document.body.scrollTop < height / 2 && globeCenter == true) {
+            animation && animation.stop();
+            animation = new TWEEN.Tween(globePosition)
+                .to(startPosition, 1000)
+                .easing(ease)
+                .onUpdate(updateGroup)
+                .start();
+            globeCenter = false;
+        }
     }
 
 }());
