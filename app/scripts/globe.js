@@ -15,16 +15,18 @@
         rotationSpeed = 0.002,
         rotation = 0,
         cameraDistance = 700,
-        startPosition = {x: -500, y: 0, scale: 1, explosion: 0.04},
-        endPosition = {x: 0, y: 0, scale: 0.8, explosion: 0.7},
+        startPosition = {x: -500, y: 0, scale: 1, explosion: 0.04, opacity: 1},
+        endPosition = {x: 0, y: 0, scale: 0.8, explosion: 0.7, opacity: 0.8},
         opacity = 1,
         globeCenter = false,
         animation,
         globePosition,
-        ease = TWEEN.Easing.Sinusoidal.InOut;
-    var color =  0xd0d0d0;
+        ease = TWEEN.Easing.Sinusoidal.InOut,
+        centerSize = 50,
+        cubeColor = 0xd0d000;
+    var color =  0xf0f0f0;
 
-    var scene, camera, renderer, light, sphere;
+    var scene, camera, renderer, light, sphere = [], center;
 
     init();
 
@@ -41,12 +43,7 @@
         light = new t.PointLight(0xa0a0a0);
         light.position.set(600, 500, 600);
         scene.add(light);
-        globePosition = {
-            x: startPosition.x,
-            y: startPosition.y,
-            scale: startPosition.scale,
-            explosion: startPosition.explosion
-        };
+        globePosition = _.clone(startPosition);
         createScene();
         webglEl.appendChild(renderer.domElement);
         window.addEventListener('resize', resize);
@@ -56,13 +53,12 @@
     function createSphere() {
         group = new THREE.Object3D();
 
-        sphere = [];
         var sphereFaces = new t.IcosahedronGeometry(200, 0);
 
         for (var i = 0; i < sphereFaces.faces.length; i++) {
             var face = sphereFaces.faces[i];
             var vertice = new t.Geometry();
-            var faceGroup = new THREE.Object3D();
+            var faceGroup = new t.Object3D();
             vertice.vertices.push(sphereFaces.vertices[face.a].clone());
             vertice.vertices.push(sphereFaces.vertices[face.b].clone());
             vertice.vertices.push(sphereFaces.vertices[face.c].clone());
@@ -92,7 +88,8 @@
                 specular: 0x000000,
                 shininess: 30,
                 shading: t.NoShading,
-                opacity: opacity
+                opacity: opacity,
+                transparent: true
             }));
             faceGroup.add(mesh);
             faceGroup.center = vertice.center;
@@ -109,37 +106,71 @@
             new t.IcosahedronGeometry(250, 2),
             new t.MeshLambertMaterial({
                 wireframe: true,
-                color: 0x000000,
+                color: 0xa0a0a0,
                 shininess: 0,
                 specular: 0,
                 ambient: 0x808080,
-                opacity: 0.5
+                opacity: 0.5,
+                transparent: true
             }) )
+    }
+
+    function createInside() {
+        var geometry = new t.IcosahedronGeometry(centerSize, 0);
+        animCenterVertice(geometry);
+        // var material = new t.MeshLambertMaterial({
+        //     ambient: 0xa0a0a0,
+        //     color: cubeColor,
+        //     specular: 0x000000,
+        //     shininess: 30,
+        //     shading: t.NoShading,
+        //     opacity: opacity
+        // });
+        var material = new t.MeshNormalMaterial();
+        var sphere = new t.Mesh(geometry, material);
+        var obj = new t.Object3D();
+        obj.add(sphere);
+        center = obj;
+        return obj;
+
+        for (var i = 0; i < cubeNb; i++) {
+            var geometry = new t.BoxGeometry(cubeSize, cubeSize, cubeSize);
+            obj.rotation.x = Math.random() * 360;
+            obj.rotation.y = Math.random() * 360;
+            obj.rotation.z = Math.random() * 360;
+        };
     }
 
     function createScene() {
         group = new THREE.Object3D();
         group.add(createSphere());
         group.add(createOutside());
+        scene.add(createInside());
 
         group.position.x = globePosition.x;
         group.position.y = globePosition.y;
+        center.position.x = globePosition.x;
+        center.position.y = globePosition.y;
+
         group.scale.set(globePosition.scale, globePosition.scale, globePosition.scale);
         scene.add(group);
     }
 
-
-    // var controls = new t.TrackballControls(camera, renderer.domElement);
-
     function render() {
+        center.children[0].geometry.verticesNeedUpdate = true;
+        center.children[0].geometry.elementsNeedUpdate = true;
+        center.children[0].geometry.morphTargetsNeedUpdate = true;
+        center.children[0].geometry.uvsNeedUpdate = true;
+        center.children[0].geometry.normalsNeedUpdate = true;
+        center.children[0].geometry.colorsNeedUpdate = true;
+        center.children[0].geometry.tangentsNeedUpdate = true;
         TWEEN.update();
         rotation += rotationSpeed;
-        // controls.update();
         requestAnimationFrame(render);
         group.rotation.y = rotation;
-        // light.position.x = Math.sin(rotation - rotationSpeed * 30) * cameraDistance;
-        // light.position.z = Math.cos(rotation - rotationSpeed * 30) * cameraDistance;
-        // light.position.set(camera.position.x + 500, camera.position.y + 300, camera.position.z);
+        group.rotation.x = rotation;
+        center.rotation.y = rotation * -1;
+        center.rotation.z = rotation * -1;
         renderer.render(scene, camera);
     }
 
@@ -180,7 +211,15 @@
     function updateGroup() {
         group.position.x = globePosition.x;
         group.position.y = globePosition.y;
+        center.position.x = globePosition.x;
+        center.position.y = globePosition.y;
         group.scale.set(globePosition.scale, globePosition.scale, globePosition.scale);
+        _.each(group.children, function(el) {
+            if (!el.initPosition)
+                return;
+            // console.log(el);
+            el.children[0].material.opacity = globePosition.opacity;
+        });
         for (var i = sphere.length - 1; i >= 0; i--) {
             explode(sphere[i], globePosition.explosion);
         };
@@ -205,6 +244,27 @@
                 .start();
             globeCenter = false;
         }
+    }
+
+    function animCenterVertice(geometry) {
+        // var animations = new Array(geometry.vertices.length);
+        // _.each(geometry.vertices, function(vertice) {
+        //     vertice.init = {x: vertice.x, y: vertice.y, z: vertice.z};
+        //     anim(vertice);
+        // });
+        // function anim(vertice) {
+        //     console.log(vertice.init);
+        //     var ratio = Math.random() / 5;
+        //     new TWEEN.Tween(vertice)
+        //     .to({
+        //         x: vertice.init.x + vertice.init.x * ratio,
+        //         y: vertice.init.y + vertice.init.y * ratio,
+        //         x: vertice.init.z + vertice.init.z * ratio,
+        //     })
+        //     .easing(ease)
+        //     .onComplete(anim.bind(this, vertice))
+        //     .start()
+        // }
     }
 
 }());
