@@ -55,6 +55,7 @@ a {
     color: lighten($gray, 20%);
 }
 
-input:focus::-webkit-input-placeholder {
-    color: transparent;
+input::-webkit-input-placeholder {
+    color: white;
+    // text-size: 150px;
 }

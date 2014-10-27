@@ -2,6 +2,22 @@ $(document).ready(function(){
 
     //------------------------------------------------------------------------//
 
+    $(function() {
+      $('a[href*=#]:not([href=#])').click(function() {
+        if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+          var target = $(this.hash);
+          target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+          if (target.length) {
+            $('html,body').animate({
+              scrollTop: target.offset().top
+            }, 1000);
+            return false;
+          }
+        }
+      });
+    });
+
+
     (function() {
         var width, height, header, content;
 
@@ -11,7 +27,7 @@ $(document).ready(function(){
 
         function init() {
             header = document.getElementById('large-header');
-            content = document.getElementById('content');
+            content = document.getElementById('contentContainer');
         }
 
         function resize() {

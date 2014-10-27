@@ -1,3 +1,35 @@
-#content {
+#contentContainer {
     background-color: #ECECEC;
+}
+.content {
+    background-color: rgba(236, 236, 236, 0.7);
+    padding: 1em;
+    position: fixed;
+    z-index: 10;
+    width: 300px;
+    font: 18px "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    h3 {
+        font-family: "adequateextra_light", sans-serif;
+        font-size: 25px;
+        line-height: 45px;
+    }
+    .contentImg {
+        text-align: center;
+    }
+    img {
+        width: 120px;
+    }
+}
+.content-1 {
+    top: 50px;
+    left: 50px;
+}
+.content-2 {
+    bottom: 50px;
+    left: 50px;
+}
+.content-3 {
+    top: 50%;
+    right: 50px;
+    margin-top: -165px;
 }

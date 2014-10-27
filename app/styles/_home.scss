@@ -15,7 +15,7 @@
 }
 .input-text {
     width: 100%;
-    border: 2px solid #d8d8d8;
+    border: 2px solid white;
     background: transparent;
     height: 45px;
     padding: 10px 21px;
@@ -38,6 +38,8 @@
     right: 0;
     left: 0;
     bottom: 0;
+    z-index: 110;
+    pointer-events: none;
 }
 canvas {
     pointer-events: none;
