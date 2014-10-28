@@ -19,24 +19,42 @@ $(document).ready(function(){
 
 
     (function() {
-        var width, height, header, content;
+        var width, height, elements, fixed, alreadyFixed = false;
 
         init();
         resize();
+        scroll();
         window.addEventListener('resize', resize);
+        window.addEventListener('scroll', _.throttle(scroll, 100));
 
         function init() {
-            header = document.getElementById('large-header');
-            content = document.getElementById('contentContainer');
+            elements = $(".fullHeight");
+            fixed = $(".fixedTop");
+            height = window.innerHeight;
+            width = window.innerWidth;
+            elements.css("height", height + 'px');
+            elements.css("width", width + 'px');
         }
 
         function resize() {
             height = window.innerHeight;
             width = window.innerWidth;
-            header.style.height = height + 'px';
-            header.style.width = width + 'px';
-            content.style.height = height + 'px';
-            content.style.width = width + 'px';
+            elements.css("height", height + 'px');
+            elements.css("width", width + 'px');
+        }
+        function scroll() {
+            if (document.body.scrollTop >= height && alreadyFixed)
+            {
+                fixed.css("position", "absolute");
+                fixed.css("top", height + 'px');
+                alreadyFixed = false;
+                console.log("changed", alreadyFixed)
+            } else if (document.body.scrollTop < height && !alreadyFixed) {
+                fixed.css("position", "fixed");
+                fixed.css("top", "0px");
+                alreadyFixed = true;
+                console.log("changed", alreadyFixed)
+            }
         }
 
     })();

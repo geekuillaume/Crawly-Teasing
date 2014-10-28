@@ -1,10 +1,11 @@
 #contentContainer {
     background-color: #ECECEC;
+    position: fixed;
 }
 .content {
     background-color: rgba(236, 236, 236, 0.7);
     padding: 1em;
-    position: fixed;
+    position: absolute;
     z-index: 10;
     width: 300px;
     font: 18px "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -32,4 +33,12 @@
     top: 50%;
     right: 50px;
     margin-top: -165px;
+}
+.contentButton {
+    position: absolute;
+    bottom: 50px;
+    right: 50px;
+    color: black;
+    border-color: black;
+    font-size: 20px;
 }

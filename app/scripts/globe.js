@@ -16,9 +16,10 @@
         rotation = 0,
         cameraDistance = 700,
         startPosition = {x: -500, y: 0, scale: 1, explosion: 0.04, opacity: 1},
-        endPosition = {x: 0, y: 0, scale: 0.8, explosion: 0.7, opacity: 0.8},
+        middlePosition = {x: 0, y: 0, scale: 0.8, explosion: 0.7, opacity: 0.8},
+        endPosition = {x: 0, y: 160, scale: 0.1, explosion: 5, opacity: 0.8},
         opacity = 1,
-        globeCenter = false,
+        globeCenter = 0,
         animation,
         globePosition,
         ease = TWEEN.Easing.Sinusoidal.InOut,
@@ -156,22 +157,15 @@
         scene.add(group);
     }
 
-    function render() {
-        center.children[0].geometry.verticesNeedUpdate = true;
-        center.children[0].geometry.elementsNeedUpdate = true;
-        center.children[0].geometry.morphTargetsNeedUpdate = true;
-        center.children[0].geometry.uvsNeedUpdate = true;
-        center.children[0].geometry.normalsNeedUpdate = true;
-        center.children[0].geometry.colorsNeedUpdate = true;
-        center.children[0].geometry.tangentsNeedUpdate = true;
+    function render(time) {
         TWEEN.update();
         rotation += rotationSpeed;
-        requestAnimationFrame(render);
         group.rotation.y = rotation;
         group.rotation.x = rotation;
         center.rotation.y = rotation * -1;
         center.rotation.z = rotation * -1;
         renderer.render(scene, camera);
+        requestAnimationFrame(render);
     }
 
     function getCenter(geometry) {
@@ -226,23 +220,32 @@
     }
 
     function scroll() {
-        if (document.body.scrollTop > height / 2 && globeCenter == false) {
-            animation && animation.stop();
-            animation = new TWEEN.Tween(globePosition)
-                .to(endPosition, 1000)
-                .easing(ease)
-                .onUpdate(updateGroup)
-                .start();
-            globeCenter = true;
-        }
-        else if (document.body.scrollTop < height / 2 && globeCenter == true) {
+        if (document.body.scrollTop < height / 2 && globeCenter != 0) {
             animation && animation.stop();
             animation = new TWEEN.Tween(globePosition)
                 .to(startPosition, 1000)
                 .easing(ease)
                 .onUpdate(updateGroup)
                 .start();
-            globeCenter = false;
+            globeCenter = 0;
+        }
+        else if (document.body.scrollTop > height / 2 && document.body.scrollTop < height * 1.5 && globeCenter != 1) {
+            animation && animation.stop();
+            animation = new TWEEN.Tween(globePosition)
+                .to(middlePosition, 1000)
+                .easing(ease)
+                .onUpdate(updateGroup)
+                .start();
+            globeCenter = 1;
+        }
+        else if (document.body.scrollTop > height * 1.5 && globeCenter != 2) {
+            animation && animation.stop();
+            animation = new TWEEN.Tween(globePosition)
+                .to(endPosition, 1000)
+                .easing(ease)
+                .onUpdate(updateGroup)
+                .start();
+            globeCenter = 2;
         }
     }
 
