@@ -1,63 +1,87 @@
 $(document).ready(function(){
 
-    //------------------------------------------------------------------------//
 
-    $(function() {
-      $('a[href*=#]:not([href=#])').click(function() {
-        if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
-          var target = $(this.hash);
-          target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
-          if (target.length) {
-            $('html,body').animate({
-              scrollTop: target.offset().top
-            }, 1000);
-            return false;
-          }
-        }
-      });
+    $(".moveDownButtton").click(function(e) {
+        e.preventDefault();
+        $('.main').moveDown();
+    })
+
+    $(".main").onepage_scroll({
+        sectionContainer: ".section",
+        easing: "ease",
+        animationTime: 1000,
+        pagination: true,
+        updateURL: false,
+        beforeMove: function(index) {
+            window.changeSphereStep(index - 1);
+        },
+        afterMove: function(index) {},
+        loop: false,
+        keyboard: true,
+        responsiveFallback: false,
+        direction: "vertical"
     });
 
+    //------------------------------------------------------------------------//
 
-    (function() {
-        var width, height, elements, fixed, alreadyFixed = false;
+    // $(function() {
+    //   $('a[href*=#]:not([href=#])').click(function() {
+    //     if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+    //       var target = $(this.hash);
+    //       target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+    //       if (target.length) {
+    //         $('html,body').animate({
+    //           scrollTop: target.offset().top
+    //         }, 1000);
+    //         return false;
+    //       }
+    //     }
+    //   });
+    // });
 
-        init();
-        resize();
-        scroll();
-        window.addEventListener('resize', resize);
-        window.addEventListener('scroll', _.throttle(scroll, 100));
 
-        function init() {
-            elements = $(".fullHeight");
-            fixed = $(".fixedTop");
-            height = window.innerHeight;
-            width = window.innerWidth;
-            elements.css("height", height + 'px');
-            elements.css("width", width + 'px');
-        }
 
-        function resize() {
-            height = window.innerHeight;
-            width = window.innerWidth;
-            elements.css("height", height + 'px');
-            elements.css("width", width + 'px');
-        }
-        function scroll() {
-            if (document.body.scrollTop >= height && alreadyFixed)
-            {
-                fixed.css("position", "absolute");
-                fixed.css("top", height + 'px');
-                alreadyFixed = false;
-                console.log("changed", alreadyFixed)
-            } else if (document.body.scrollTop < height && !alreadyFixed) {
-                fixed.css("position", "fixed");
-                fixed.css("top", "0px");
-                alreadyFixed = true;
-                console.log("changed", alreadyFixed)
-            }
-        }
 
-    })();
+    // (function() {
+    //     var width, height, elements, fixed, alreadyFixed = false;
+
+    //     init();
+    //     resize();
+    //     scroll();
+    //     window.addEventListener('resize', resize);
+    //     window.addEventListener('scroll', _.throttle(scroll, 100));
+
+    //     function init() {
+    //         elements = $(".fullHeight");
+    //         fixed = $(".fixedTop");
+    //         height = window.innerHeight;
+    //         width = window.innerWidth;
+    //         elements.css("height", height + 'px');
+    //         elements.css("width", width + 'px');
+    //     }
+
+    //     function resize() {
+    //         height = window.innerHeight;
+    //         width = window.innerWidth;
+    //         elements.css("height", height + 'px');
+    //         elements.css("width", width + 'px');
+    //     }
+    //     function scroll() {
+    //         if (document.body.scrollTop >= height && alreadyFixed)
+    //         {
+    //             fixed.css("position", "absolute");
+    //             fixed.css("top", height + 'px');
+    //             alreadyFixed = false;
+    //             console.log("changed", alreadyFixed)
+    //         } else if (document.body.scrollTop < height && !alreadyFixed) {
+    //             fixed.css("position", "fixed");
+    //             fixed.css("top", "0px");
+    //             alreadyFixed = true;
+    //             console.log("changed", alreadyFixed)
+    //         }
+    //     }
+
+    // })();
 
     /*
     (function() {

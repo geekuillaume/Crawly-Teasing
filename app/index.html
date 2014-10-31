@@ -9,6 +9,7 @@
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <!-- build:css styles/vendor.css -->
         <!-- bower:css -->
+        <link rel="stylesheet" href="../bower_components/onepage-scroll/onepage-scroll.css" />
         <!-- endbower -->
         <!-- endbuild -->
         <!-- build:css(.tmp) styles/main.css -->
@@ -20,9 +21,9 @@
         <![endif]-->
     </head>
     <body class="no-js">
+        <div id="globe"></div>
         <div class="main">
-            <div id="globe"></div>
-            <header id="large-header" class="fullHeight">
+            <header id="large-header" class="fullHeight section">
                 <!-- <canvas id="pointsVisu"></canvas> -->
                 <div class="wrap">
                     <div class="header-wrapper">
@@ -36,12 +37,11 @@
                                 <button class="input_button"><i class="icon-paper-plane"></i></button>
                             </form>
                         </div>
-                        <a href="#contentHandle" class="button">Get More Information <i class="icon-down-open"></i></a>
+                        <a href="#contentHandle" class="button moveDownButtton">Get More Information <i class="icon-down-open"></i></a>
                     </div>
                 </div>
             </header>
-            <div class="fullHeight" id="contentHandle"></div>
-            <div id="contentContainer" class="fullHeight fixedTop">
+            <div id="contentContainer" class="section">
                 <div class="content content-1">
                     <div class="contentImg">
                         <img src="images/links.svg">
@@ -69,9 +69,9 @@
                         <p>Crawly get you all the data you need, and it can be huge. Our statistics tools helps you get the meaning behing the data.</p>
                     </div>
                 </div>
-                <a href="#footer" class="button contentButton">Reserve your invitation <i class="icon-mail"></i></a>
+                <a href="#footer" class="button contentButton moveDownButtton">Reserve your invitation <i class="icon-mail"></i></a>
             </div>
-            <div id="footer" class="fullHeight">
+            <div id="footer" class="section">
                 <p class="action">Be the first to use Crawly !</p>
                 <div class="form_container">
                     <form action="" class="input_form bottomInput">
@@ -86,8 +86,9 @@
         </div>
         <!-- build:js scripts/vendor.js -->
         <!-- bower:js -->
-        <script src="../bower_components/jquery/dist/jquery.js"></script>
+        <script src="../bower_components/jquery/jquery.js"></script>
         <script src="../bower_components/three.js/three.min.js"></script>
+        <script src="../bower_components/onepage-scroll/jquery.onepage-scroll.js"></script>
         <!-- endbower -->
         <script src="../bower_components/tween.js/build/tween.min.js"></script>
         <script src="../bower_components/lodash/dist/lodash.min.js"></script>

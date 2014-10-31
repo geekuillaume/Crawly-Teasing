@@ -1,11 +1,10 @@
-// Created by Bjorn Sandvik - thematicmapping.org
 (function () {
 
     var t = THREE;
     var webglEl = document.getElementById('globe');
 
     if (!Detector.webgl) {
-        // Detector.addGetWebGLMessage(webglEl);
+        console.log("No WebGL Detected");
         return;
     }
 
@@ -219,8 +218,8 @@
         };
     }
 
-    function scroll() {
-        if (document.body.scrollTop < height / 2 && globeCenter != 0) {
+    window.changeSphereStep = function(index) {
+        if (index == 0 && globeCenter != 0) {
             animation && animation.stop();
             animation = new TWEEN.Tween(globePosition)
                 .to(startPosition, 1000)
@@ -229,7 +228,7 @@
                 .start();
             globeCenter = 0;
         }
-        else if (document.body.scrollTop > height / 2 && document.body.scrollTop < height * 1.5 && globeCenter != 1) {
+        else if (index == 1 && globeCenter != 1) {
             animation && animation.stop();
             animation = new TWEEN.Tween(globePosition)
                 .to(middlePosition, 1000)
@@ -238,7 +237,7 @@
                 .start();
             globeCenter = 1;
         }
-        else if (document.body.scrollTop > height * 1.5 && globeCenter != 2) {
+        else if (index == 2 && globeCenter != 2) {
             animation && animation.stop();
             animation = new TWEEN.Tween(globePosition)
                 .to(endPosition, 1000)
