@@ -1,4 +1,7 @@
 (function () {
+    if (window.innerWidth <= 650) {
+        return;
+    }
 
     var t = THREE;
     var webglEl = document.getElementById('globe');
@@ -46,6 +49,7 @@
         globePosition = _.clone(startPosition);
         createScene();
         webglEl.appendChild(renderer.domElement);
+        webglEl.style['z-index'] = 1;
         window.addEventListener('resize', resize);
         render();
     }
@@ -227,6 +231,7 @@
                 .onUpdate(updateGroup)
                 .start();
             globeCenter = 0;
+            webglEl.style['z-index'] = 1;
         }
         else if (index == 1 && globeCenter != 1) {
             animation && animation.stop();
@@ -234,6 +239,9 @@
                 .to(middlePosition, 1000)
                 .easing(ease)
                 .onUpdate(updateGroup)
+                .onComplete(function() {
+                    webglEl.style['z-index'] = 0;
+                })
                 .start();
             globeCenter = 1;
         }
@@ -245,6 +253,7 @@
                 .onUpdate(updateGroup)
                 .start();
             globeCenter = 2;
+            webglEl.style['z-index'] = 1;
         }
     }
 

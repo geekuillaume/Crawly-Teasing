@@ -1,6 +1,6 @@
 /* home -------------------------- */
 .input_button {
-    width: 69px;
+    width: 60px;
     position: absolute;
     right: 0;
     top: 0;
@@ -17,16 +17,17 @@
     width: 100%;
     border: 2px solid white;
     background: transparent;
-    height: 45px;
+    height: 60px;
     padding: 10px 21px;
     font: $f-medium 17px/34px $fontCaption;
     color: white;
     @include transition(#{color 0.1s linear, background-color 0.1s linear, border-color 0.1s linear});
     @include border-radius(5px 0 0 5px);
+    box-sizing: border-box;
 }
 .input_container {
     width: 100%;
-    padding-right: 69px;
+    padding-right: 60px;
     @include sizing;
 }
 .input_form {
@@ -38,8 +39,8 @@
     right: 0;
     left: 0;
     bottom: 0;
-    z-index: 110;
     pointer-events: none;
+    z-index: 0;
 }
 canvas {
     pointer-events: none;

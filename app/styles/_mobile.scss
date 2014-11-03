@@ -1,0 +1,32 @@
+@media (max-width: 650px) {
+    body, html {
+        overflow: initial;
+        // overflow-x: hidden;
+    }
+    header {
+        padding: 15px 5px;
+    }
+    header h1 {
+        line-height: 100px;
+    }
+    header p {
+        font-size: 20px;
+    }
+    header .button {
+        font-size: 20px;
+        display: block;
+    }
+    .content {
+        position: static;
+        margin-top: 0;
+        width: auto;
+        background: none;
+    }
+    .contentButton {
+        position: static;
+        display: block;
+        text-align: center;
+        box-sizing: border-box;
+        margin: 2em 15px;
+    }
+}

@@ -6,7 +6,8 @@
     "jquery": "~1.11.0",
     "three.js": "*",
     "tween.js": "https://github.com/sole/tween.js.git",
-    "onepage-scroll": "~1.3.1"
+    "onepage-scroll": "~1.3.1",
+    "FitText.js": "~1.2.0"
   },
   "devDependencies": {}
 }
