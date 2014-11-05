@@ -10,6 +10,7 @@
         console.log("No WebGL Detected");
         return;
     }
+    $("body").removeClass("no-webgl");
 
     var width  = window.innerWidth,
         height = window.innerHeight,
@@ -38,7 +39,7 @@
         camera = new t.PerspectiveCamera(45, width / height, 0.01, 10000);
         camera.position.z = cameraDistance;
 
-        renderer = new t.WebGLRenderer({alpha: true, antialias: true});
+        renderer = new t.WebGLRenderer({alpha: true, antialias: true, preserveDrawingBuffer: true});
         renderer.setSize(width, height);
 
         scene.add(new t.AmbientLight(0xa2a2a2));

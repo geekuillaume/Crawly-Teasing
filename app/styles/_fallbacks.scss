@@ -1,0 +1,12 @@
+.no-webgl {
+    header {
+        background: url(../images/globe_1.png) no-repeat 50% 50%, url(../images/bg_lanes.jpg) no-repeat 50% 50%;
+    }
+    #contentContainer {
+        background: url(../images/globe_2.png) no-repeat 50% 50%;
+        background-size: cover;
+    }
+    #footer {
+        background: url(../images/globe_3.png) no-repeat 50% 50%, linear-gradient(to bottom, #45484d 0%,#000000 100%);
+    }
+}

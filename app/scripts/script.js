@@ -1,5 +1,7 @@
 $(document).ready(function(){
 
+    $("body").removeClass("no-js");
+
     if (window.innerWidth <= 650) {
         $("h1").fitText(0.6);
         bindScrollLink();
