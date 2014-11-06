@@ -27,6 +27,38 @@ $(document).ready(function(){
         });
     }
 
+    (function() {
+        var formWrap = document.getElementById( 'fs-form-wrap' );
+
+        [].slice.call( document.querySelectorAll( 'select.cs-select' ) ).forEach( function(el) {
+            new SelectFx( el, {
+                stickyPlaceholder: false,
+                onChange: function(val){
+                    document.querySelector('span.cs-placeholder').style.backgroundColor = val;
+                }
+            });
+        } );
+
+        function getFormInfos() {
+            return {
+                email: $("#emailAddress").val(),
+                websiteNb: $('input[name=websiteNb]:checked').val(),
+                budget: $("#budget").val(),
+                message: $("#message").val()
+            };
+        }
+
+        new FForm( formWrap, {
+            ctrlNavDots: false,
+            onReview : function() {
+                console.log(getFormInfos());
+            },
+            onStepChange: function(stepNb) {
+                console.log(getFormInfos());
+            }
+        } );
+    })();
+
     //------------------------------------------------------------------------//
 
 
@@ -57,7 +89,8 @@ $(document).ready(function(){
         // window.addEventListener('scroll', _.throttle(scroll, 100));
 
         function init() {
-            elements = $(".fullHeight");
+            elements = $(".minFullHeight");
+            elementsFull = $(".fullHeight");
             height = window.innerHeight;
             width = window.innerWidth;
         }
@@ -67,6 +100,8 @@ $(document).ready(function(){
             width = window.innerWidth;
             elements.css("min-height", height + 'px');
             elements.css("min-width", width + 'px');
+            elementsFull.css("height", height + 'px');
+            elementsFull.css("width", width + 'px');
         }
 
     }
