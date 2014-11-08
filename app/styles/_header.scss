@@ -65,4 +65,11 @@ header {
         background-color: white;
         color: black;
     }
+    &.primary {
+        &:hover {
+            border-color: grey;
+        }
+        background-color: white;
+        color: black;
+    }
 }

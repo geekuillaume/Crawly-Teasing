@@ -257,7 +257,7 @@ button.fs-continue,
 }
 
 .fs-fields [required] {
-    background-image: url(../img/abacusstar.svg);
+    background-image: url(../images/abacusstar.svg);
     background-position: top right;
     background-size: 18px;
     background-repeat: no-repeat;
@@ -299,12 +299,6 @@ button.fs-continue,
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-.fs-fields > li .fs-radio-custom span label {
-    color: rgba(0,0,0,0.4);
-    -webkit-transition: color 0.3s;
-    transition: color 0.3s;
-}
-
 .fs-form-overview .fs-fields > li .fs-radio-custom span {
     max-width: 140px;
 }
@@ -338,17 +332,17 @@ button.fs-continue,
     transform: translate(-50%,-50%);
 }
 
-.fs-fields .fs-radio-custom label.radio-mobile::after {
-    background-image: url(../img/mobile.svg);
-}
+// .fs-fields .fs-radio-custom label.radio-mobile::after {
+//     background-image: url(../images/mobile.svg);
+// }
 
-.fs-fields .fs-radio-custom label.radio-social::after {
-    background-image: url(../img/social.svg);
-}
+// .fs-fields .fs-radio-custom label.radio-social::after {
+//     background-image: url(../images/social.svg);
+// }
 
-.fs-fields .fs-radio-custom label.radio-conversion::after {
-    background-image: url(../img/conversion.svg);
-}
+// .fs-fields .fs-radio-custom label.radio-conversion::after {
+//     background-image: url(../images/conversion.svg);
+// }
 
 .fs-fields .fs-radio-custom label:hover::after,
 .fs-fields input[type="radio"]:focus + label::after,
@@ -412,14 +406,14 @@ button.fs-continue,
 
 .fs-fields input.fs-mark {
     padding-left: 1em;
-    background-image: url(../img/dollar.svg);
+    background-image: url(../images/dollar.svg);
     background-position: 0% 0.15em;
     background-size: auto 75%;
     background-repeat: no-repeat;
 }
 
 .fs-fields input.fs-mark[required] {
-    background-image: url(../img/dollar.svg), url(../img/abacusstar.svg);
+    background-image: url(../images/dollar.svg), url(../images/abacusstar.svg);
     background-position: 0% 0.15em, top right;
     background-size: auto 75%, 18px;
     background-repeat: no-repeat;

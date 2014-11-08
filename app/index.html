@@ -29,15 +29,9 @@
                     <div class="header-wrapper">
                         <h1>Crawly</h1>
                         <p>Get meaningful data in real-time from any website</p>
-                        <div class="newsletter-form clearfix">
-                            <form action="" class="input_form">
-                                <div class="input_container">
-                                    <input type="email" placeholder="Reserve your invitation now" class="input-text">
-                                </div>
-                                <button class="input_button"><i class="icon-paper-plane"></i></button>
-                            </form>
-                        </div>
-                        <a href="#contentContainer" class="button moveDownButtton">Get More Information <i class="icon-down-open"></i></a>
+
+                        <a href="#footer" to="3" class="button moveDownButtton primary"><i class="icon-mail"></i> Reserve your invitation now !</a>
+                        <a href="#contentContainer" to="2" class="button moveDownButtton"><i class="icon-down-open"></i> Get More Information</a>
                     </div>
                 </div>
             </header>
@@ -69,89 +63,54 @@
                         <p>Crawly get you all the data you need, and it can be huge. Our statistics tools helps you get the meaning behing the data.</p>
                     </div>
                 </div>
-                <a href="#footer" class="button contentButton moveDownButtton">Reserve your invitation <i class="icon-mail"></i></a>
+                <a href="#footer" to="3" class="button contentButton moveDownButtton"><i class="icon-mail"> Reserve your invitation</i></a>
             </div>
-<!--             <div id="footer" class="section minFullHeight">
-                <p class="action">Be the first to use Crawly !</p>
-                <div class="form_container">
-                    <form action="" class="input_form bottomInput">
-                        <div class="input_container">
-                            <input type="email" placeholder="Reserve your invitation now" class="input-text">
-                        </div>
-                        <button class="input_button"><i class="icon-paper-plane"></i></button>
-                    </form>
-                </div>
-                <p class="footerInfos"><a href="#">Contact</a></p>
-            </div>
- -->
+
             <div id="footer" class="section fullHeight container">
                 <div class="fs-form-wrap" id="fs-form-wrap">
-<!--                     <div class="fs-title">
-                        <h1>Project Worksheet</h1>
-                         <div class="codrops-top">
-                            <a class="codrops-icon codrops-icon-info" href="#"><span>This is a demo for a fullscreen form</span></a>
-                        </div>
+                    <div class="fs-title">
+                        <h2>Be the first to use Crawly</h2>
+                        <p class="formSubtitle">We'll use these questions to improve your experience</p>
                     </div>
- -->
+
                     <form id="myform" class="fs-form fs-form-full" autocomplete="off">
                         <ol class="fs-fields">
                             <li>
                                 <label class="fs-field-label fs-anim-upper" for="emailAddress" data-info="We won't send you spam, we promise...">What's your email address?</label>
                                 <input class="fs-anim-lower" id="emailAddress" name="emailAddress" type="email" placeholder="dean@road.us" required/>
                             </li>
-<!--                             <li>
-                                <label class="fs-field-label fs-anim-upper" for="q1">What's your name?</label>
-                                <input class="fs-anim-lower" id="q1" name="q1" type="text" placeholder="Dean Moriarty" required/>
-                            </li>
- -->
                             <li data-input-trigger>
                                 <label class="fs-field-label fs-anim-upper" for="websiteNb" data-info="This will help us know what kind of service you need">How many websites would you like to track?</label>
                                 <div class="fs-radio-group fs-radio-custom clearfix fs-anim-lower">
-                                    <span><input id="less10" name="websiteNb" type="radio" value="less10"/><label for="less10" class="radio-conversion">Less than 10</label></span>
-                                    <span><input id="10-50" name="websiteNb" type="radio" value="10-50"/><label for="10-50" class="radio-social">Between 10 and 50</label></span>
-                                    <span><input id="50+" name="websiteNb" type="radio" value="50+"/><label for="50+" class="radio-mobile">More than 50</label></span>
+                                    <span><input id="website_less10" name="websiteNb" type="radio" value="less10" required/><label for="website_less10">Less than 10</label></span>
+                                    <span><input id="website_10-50" name="websiteNb" type="radio" value="10-50" required/><label for="website_10-50">Between 10 and 50</label></span>
+                                    <span><input id="website_50+" name="websiteNb" type="radio" value="50+" required/><label for="website_50+">More than 50</label></span>
                                 </div>
                             </li>
-<!--                             <li data-input-trigger>
-                                <label class="fs-field-label fs-anim-upper" data-info="We'll make sure to use it all over">Choose a color for your website.</label>
-                                <select class="cs-select cs-skin-boxes fs-anim-lower">
-                                    <option value="" disabled selected>Pick a color</option>
-                                    <option value="#588c75" data-class="color-588c75">#588c75</option>
-                                    <option value="#b0c47f" data-class="color-b0c47f">#b0c47f</option>
-                                    <option value="#f3e395" data-class="color-f3e395">#f3e395</option>
-                                    <option value="#f3ae73" data-class="color-f3ae73">#f3ae73</option>
-                                    <option value="#da645a" data-class="color-da645a">#da645a</option>
-                                    <option value="#79a38f" data-class="color-79a38f">#79a38f</option>
-                                    <option value="#c1d099" data-class="color-c1d099">#c1d099</option>
-                                    <option value="#f5eaaa" data-class="color-f5eaaa">#f5eaaa</option>
-                                    <option value="#f5be8f" data-class="color-f5be8f">#f5be8f</option>
-                                    <option value="#e1837b" data-class="color-e1837b">#e1837b</option>
-                                    <option value="#9bbaab" data-class="color-9bbaab">#9bbaab</option>
-                                    <option value="#d1dcb2" data-class="color-d1dcb2">#d1dcb2</option>
-                                    <option value="#f9eec0" data-class="color-f9eec0">#f9eec0</option>
-                                    <option value="#f7cda9" data-class="color-f7cda9">#f7cda9</option>
-                                    <option value="#e8a19b" data-class="color-e8a19b">#e8a19b</option>
-                                    <option value="#bdd1c8" data-class="color-bdd1c8">#bdd1c8</option>
-                                    <option value="#e1e7cd" data-class="color-e1e7cd">#e1e7cd</option>
-                                    <option value="#faf4d4" data-class="color-faf4d4">#faf4d4</option>
-                                    <option value="#fbdfc9" data-class="color-fbdfc9">#fbdfc9</option>
-                                    <option value="#f1c1bd" data-class="color-f1c1bd">#f1c1bd</option>
-                                </select>
-                            </li>
- -->
-                            <li>
-                                <label class="fs-field-label fs-anim-upper" for="budget">What's your budget?</label>
-                                <input class="fs-mark fs-anim-lower" id="budget" name="budget" type="number" placeholder="1000" step="100" min="100"/>
-                            </li>
-                            <li>
-                                <label class="fs-field-label fs-anim-upper" for="message">Do you have a special need ?</label>
-                                <textarea class="fs-anim-lower" id="message" name="message" placeholder="Describe here"></textarea>
+                            <li data-input-trigger>
+                                <label class="fs-field-label fs-anim-upper" for="howMuch">What's your monthly budget?</label>
+                                <div class="fs-radio-group fs-radio-custom clearfix fs-anim-lower">
+                                    <span><input id="budget_less10" name="howMuch" type="radio" value="less30" required/><label for="budget_less10">Less than $30</label></span>
+                                    <span><input id="budget_10-50" name="howMuch" type="radio" value="30-100" required/><label for="budget_10-50">Between $30 and $100</label></span>
+                                    <span><input id="budget_50+" name="howMuch" type="radio" value="100+" required/><label for="budget_50+">More than $100</label></span>
+                                </div>
                             </li>
                         </ol><!-- /fs-fields -->
-                        <button class="fs-submit" type="submit">Send answers</button>
                     </form><!-- /fs-form -->
                     <div class="formEnd">
+                        <div class="iconEndForm"><i class="icon-emo-happy"></i></div>
                         <p>Thanks ! We'll send you an invitation soon !</p>
+                        <div class="socialLinks">
+                            <a href="https://www.facebook.com/sharer/sharer.php?u=http://usecrawly.com/" target="_blank">
+                                <div class="socialButton facebook"><i class="icon-facebook"></i></div>
+                            </a>
+                            <a href="https://twitter.com/home?status=Crawly%20is%20reinventing%20website%20crawling,%20get%20your%20invitation%20now%20!%20http://usecrawly.com/" target="_blank">
+                                <div class="socialButton twitter"><i class="icon-twitter"></i></div>
+                            </a>
+                            <a href="https://plus.google.com/share?url=http://usecrawly.com/" target="_blank">
+                                <div class="socialButton gplus"><i class="icon-gplus"></i></div>
+                            </a>
+                        </div>
                     </div>
                 </div><!-- /fs-form-wrap -->
 

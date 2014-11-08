@@ -9,7 +9,8 @@ $(document).ready(function(){
     } else {
         $(".moveDownButtton").click(function(e) {
             e.preventDefault();
-            $('.main').moveDown();
+            // $('.main').moveDown();
+            $('.main').moveTo($(e.target).attr("to"));
         })
         $(".main").onepage_scroll({
             sectionContainer: ".section",
@@ -43,16 +44,15 @@ $(document).ready(function(){
             return {
                 email: $("#emailAddress").val(),
                 websiteNb: $('input[name=websiteNb]:checked').val(),
-                budget: $("#budget").val(),
-                message: $("#message").val()
+                budget: $("input[name=howMuch]:checked").val()
             };
         }
 
         new FForm( formWrap, {
             ctrlNavDots: false,
-            onReview : function() {
-                console.log(getFormInfos());
-            },
+            // onReview : function() {
+            //     console.log(getFormInfos());
+            // },
             onStepChange: function(stepNb) {
                 console.log(getFormInfos());
             }
