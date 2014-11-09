@@ -7,10 +7,10 @@
     var webglEl = document.getElementById('globe');
 
     if (!Detector.webgl) {
+        $("body").addClass("no-webgl");
         console.log("No WebGL Detected");
         return;
     }
-    $("body").removeClass("no-webgl");
 
     var width  = window.innerWidth,
         height = window.innerHeight,
