@@ -9,7 +9,6 @@ $(document).ready(function(){
     } else {
         $(".moveDownButtton").click(function(e) {
             e.preventDefault();
-            // $('.main').moveDown();
             $('.main').moveTo($(e.target).attr("to"));
         })
         $(".main").onepage_scroll({
@@ -31,15 +30,6 @@ $(document).ready(function(){
     (function() {
         var formWrap = document.getElementById( 'fs-form-wrap' );
 
-        [].slice.call( document.querySelectorAll( 'select.cs-select' ) ).forEach( function(el) {
-            new SelectFx( el, {
-                stickyPlaceholder: false,
-                onChange: function(val){
-                    document.querySelector('span.cs-placeholder').style.backgroundColor = val;
-                }
-            });
-        } );
-
         function getFormInfos() {
             return {
                 email: $("#emailAddress").val(),
@@ -54,7 +44,14 @@ $(document).ready(function(){
             //     console.log(getFormInfos());
             // },
             onStepChange: function(stepNb) {
-                console.log(getFormInfos());
+                $.ajax({
+                    url: "https://crawlyteasing.herokuapp.com/savePerson",
+                    data: getFormInfos(),
+                    type: "POST",
+                    crossDomain: true
+                }).done(function(err, data) {
+                    console.log("done", err, data);
+                });
             }
         } );
     })();
