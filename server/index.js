@@ -14,7 +14,7 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser')
 app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "usecrawly.com");
+    res.header("Access-Control-Allow-Origin", "http://usecrawly.com");
     res.header("Access-Control-Allow-Headers", "X-Requested-With");
     next();
 });

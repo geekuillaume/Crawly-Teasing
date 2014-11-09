@@ -44,6 +44,7 @@ $(document).ready(function(){
             //     console.log(getFormInfos());
             // },
             onStepChange: function(stepNb) {
+                ga('send', 'event', 'Form', 'Step' + stepNb + 'Completed');
                 $.ajax({
                     url: "https://crawlyteasing.herokuapp.com/savePerson",
                     data: getFormInfos(),
