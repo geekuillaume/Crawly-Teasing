@@ -238,13 +238,14 @@ button.fs-continue,
     padding: 0 0 0.15em;
     width: 100%;
     border: none;
-    border-bottom: 2px solid rgba(0,0,0,0.2);
+    border-bottom: 2px solid rgba(255,255,255,0.2);
     background-color: transparent;
     color: #fffed8;
     text-overflow: ellipsis;
     font-weight: bold;
     font-size: 1.5em;
     border-radius: 0;
+    font-family: Raleway, serif;
 }
 
 .fs-fields input:invalid {
@@ -368,6 +369,7 @@ button.fs-continue,
     font-weight: 700;
     font-size: 0.85em;
     resize: none;
+    font-family: Raleway, serif;
 }
 
 .fs-form-overview .fs-fields textarea {
@@ -422,22 +424,22 @@ button.fs-continue,
 /* placeholder */
 .fs-fields input::-webkit-input-placeholder,
 .fs-fields textarea::-webkit-input-placeholder {
-    color: rgba(0,0,0,0.1);
+    color: rgba(255,255,255,0.1);
 }
 
 .fs-fields input:-moz-placeholder,
 .fs-fields textarea:-moz-placeholder {
-    color: rgba(0,0,0,0.1);
+    color: rgba(255,255,255,0.1);
 }
 
 .fs-fields input::-moz-placeholder,
 .fs-fields textarea::-moz-placeholder {
-    color: rgba(0,0,0,0.1);
+    color: rgba(255,255,255,0.1);
 }
 
 .fs-fields input:-ms-input-placeholder,
 .fs-fields textarea:-ms-input-placeholder {
-    color: rgba(0,0,0,0.1);
+    color: rgba(255,255,255,0.1);
 }
 
 /* Hide placeholder when focused in Webkit browsers */

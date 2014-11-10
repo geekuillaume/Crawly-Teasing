@@ -34,7 +34,8 @@ $(document).ready(function(){
             return {
                 email: $("#emailAddress").val(),
                 websiteNb: $('input[name=websiteNb]:checked').val(),
-                budget: $("input[name=howMuch]:checked").val()
+                budget: $("input[name=howMuch]:checked").val(),
+                usage: $("#usage").val()
             };
         }
 

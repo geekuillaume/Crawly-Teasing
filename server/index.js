@@ -7,7 +7,8 @@ mongoose.connect('mongodb://' + process.env.DBADDR + '/' + process.env.DBNAME, {
 var Person = mongoose.model('Person', {
     email: String,
     websiteNb: String,
-    budget: String
+    budget: String,
+    usage: String
 });
 
 var express = require('express');
