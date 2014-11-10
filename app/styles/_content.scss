@@ -3,16 +3,18 @@ $border: 15px;
 #contentContainer {
     &.active {
         .content {
-            transform: translate3d(0, 0, 0);
             z-index: 1000;
         }
         .content-1 {
+            transform: translate3d(20px, 20px, 0);
             transition-delay: 1s;
         }
         .content-2 {
+            transform: translate3d(20px, -20px, 0);
             transition-delay: 1.2s;
         }
         .content-3 {
+            transform: translate3d(0, -20px, 0);
             transition-delay: 1.4s;
         }
     }
@@ -26,6 +28,7 @@ $border: 15px;
     font: 18px "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
     transition: 1s transform ease;
     transition-delay: 0;
+    border-radius: $border;
     h3 {
         font-family: "adequateextra_light", sans-serif;
         font-size: 25px;
@@ -42,20 +45,17 @@ $border: 15px;
 .content-1 {
     top: 0;
     left: 0;
-    border-radius: 0 0 $border 0;
     transform: translate3d(-100%, -100%, 0);
 }
 .content-2 {
     bottom: 0;
     left: 0;
-    border-radius: 0 $border 0 0;
     transform: translate3d(-100%, 100%, 0);
 }
 .content-3 {
     top: 50%;
     right: 0;
     margin-top: -165px;
-    border-radius: $border 0 0 $border;
     transform: translate3d(100%, 0, 0);
 }
 .contentButton {

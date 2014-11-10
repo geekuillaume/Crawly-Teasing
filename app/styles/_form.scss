@@ -288,16 +288,13 @@ button.fs-continue,
 }
 
 .fs-fields > li .fs-radio-custom span {
-    float: left;
-    position: relative;
-    margin-right: 3%;
     padding: 10px;
-    max-width: 200px;
-    width: 30%;
+    max-width: 400px;
+    margin: auto;
     text-align: center;
     font-weight: 700;
     font-size: 50%;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    display: block;
 }
 
 .fs-form-overview .fs-fields > li .fs-radio-custom span {
@@ -743,6 +740,7 @@ button.fs-continue:hover {
 
 /* Hide current li when navigating to previous question */
 .fs-form .fs-display-prev .fs-hide {
+    opacity: 0;
     visibility: visible;
 }
 
@@ -758,11 +756,13 @@ button.fs-continue:hover {
 }
 
 @-webkit-keyframes animHidePrev {
-    to { opacity: 0; -webkit-transform: translate3d(0,500px,0); }
+    from { opacity: 1; -webkit-transform: translate3d(0,0,0);}
+    to { opacity: 0; -webkit-transform: translate3d(0,500px,0);}
 }
 
 @keyframes animHidePrev {
-    to { opacity: 0; -webkit-transform: translate3d(0,500px,0); transform: translate3d(0,500px,0); }
+    from { opacity: 1; -webkit-transform: translate3d(0,0,0); transform: translate3d(0,0,0);}
+    to { opacity: 0; -webkit-transform: translate3d(0,500px,0); transform: translate3d(0,500px,0);}
 }
 
 /* Show new li when navigating to previous question */
